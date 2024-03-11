@@ -1,37 +1,45 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
-import { useGetOneCharacter } from "../../core/hooks/api/useGetOneCharacter";
-import { CharacterImage } from "../shared/CharacterImage";
-import { HeartButton } from "../shared/HeartButton";
 import { useFavourites } from "../../core/hooks/useFavourites";
+import { useGetOneCharacter } from "../../core/hooks/api/useGetOneCharacter";
+import { ICharacter } from "../../core/interfaces/characters.model";
+import { IComic } from "../../core/interfaces/comic.model";
+import { Image } from "../shared/Image";
+import { HeartButton } from "../shared/HeartButton";
+import { ComicList } from "../shared/ComicList";
+import { CharacterSkeleton } from ".";
 
 interface CharacterProps {}
 
 export const Character: FC<CharacterProps> = () => {
   const { id } = useParams();
 
-  const { data, ...useGetOneCharacterState } = useGetOneCharacter(Number(id));
-
   const { favourites, addFavourite, removeFavourite } = useFavourites();
-
-  const { results = [] } = data || {};
-  const [character] = results;
+  const useGetOneCharacterState = useGetOneCharacter(Number(id));
+  const data = useGetOneCharacterState.data as {
+    character: ICharacter;
+    comics: IComic[];
+  };
+  const character = data?.character;
+  const comics = data?.comics;
 
   console.log({ character });
+  console.log({ comics });
 
   return (
     <div>
-      {useGetOneCharacterState.isLoading && "Loading..."}
+      {useGetOneCharacterState.isLoading && <CharacterSkeleton />}
       {!useGetOneCharacterState.isLoading && (
         <>
-          <div className="mb-[36px] flex justify-center bg-secondary">
+          <div className="clip-triangle flex justify-center bg-secondary">
             <div className="flex w-full flex-col sm:w-[80%] sm:flex-row">
-              <CharacterImage
-                character={character}
+              <Image
+                image={character.thumbnail}
+                alt={character.name}
                 className="h-[400px] sm:w-1/3"
               />
-              <div className="clip-triangle container flex flex-col justify-center space-y-8 p-[36px]">
-                <div className="flex justify-between">
+              <div className="container flex flex-col justify-center space-y-8 p-[36px]">
+                <div className="flex items-center justify-between">
                   <p className="text-3xl font-bold uppercase text-white">
                     {character.name}
                   </p>
@@ -47,20 +55,8 @@ export const Character: FC<CharacterProps> = () => {
             </div>
           </div>
           <div className="flex justify-center">
-            <div className="w-[80%]">
-              <p className="text-3xl font-bold uppercase">Comics</p>
-              <ul className="grid grid-cols-2 gap-6 sm:grid-cols-5">
-                {character.comics.items.map((comic) => (
-                  <li key={comic.resourceURI}>
-                    <img
-                      className="h-[210px] w-full object-cover"
-                      alt={comic.name}
-                      src={comic.resourceURI}
-                    />
-                    <p>{comic.name}</p>
-                  </li>
-                ))}
-              </ul>
+            <div className="my-[42px] w-[80%]">
+              <ComicList comics={comics} />
             </div>
           </div>
         </>

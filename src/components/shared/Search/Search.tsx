@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 interface SearchProps extends React.ComponentPropsWithoutRef<"input"> {
   onInputChange: (value: string) => void;
@@ -22,15 +23,17 @@ export const Search: FC<SearchProps> = (props: SearchProps) => {
   };
 
   return (
-    <div className="flex">
+    <div className="relative w-full">
       <input
-        className="w-full rounded-sm px-2 py-1 uppercase outline-none ring-2 ring-primary-light
-         focus-visible:ring-4 focus-visible:ring-primary-dark	"
+        className="w-full rounded-sm border-b border-black px-10 py-1 uppercase outline-none"
         onChange={handleInputChange}
         value={state}
         placeholder={placeholder}
         {...inputProps}
       />
+      <div className="absolute left-3 top-0 mr-3 mt-2">
+        <FaMagnifyingGlass />
+      </div>
     </div>
   );
 };

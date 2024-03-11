@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Link } from "react-router-dom";
 import { ICharacter } from "../../../core/interfaces/characters.model";
 import { useFavourites } from "../../../core/hooks/useFavourites";
-import { CharacterImage } from "../CharacterImage";
+import { Image } from "../Image";
 import { HeartButton } from "../HeartButton";
 
 interface CharacterCardProps {
@@ -22,7 +22,7 @@ export const CharacterCard: FC<CharacterCardProps> = (
     <li>
       <Link to={`/${character.id}`}>
         <div className="group flex h-fit flex-col">
-          <CharacterImage character={character} />
+          <Image image={character.thumbnail} alt={character.name} />
           <div
             className="
           before:duration-400

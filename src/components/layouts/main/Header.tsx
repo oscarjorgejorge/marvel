@@ -10,7 +10,7 @@ export const Header: FC<HeaderProps> = () => {
   const { favourites } = useFavourites();
 
   return (
-    <header className="flex justify-between bg-secondary p-4">
+    <header className="flex justify-between border-b-[1px] border-slate-800 bg-secondary p-4">
       <Logo />
       <div className="flex items-center">
         <Link to="/favourites">

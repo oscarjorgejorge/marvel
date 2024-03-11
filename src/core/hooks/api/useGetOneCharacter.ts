@@ -8,7 +8,12 @@ export const useGetOneCharacter = (id: number) => {
 
   const state = useQuery({
     queryKey,
-    queryFn: () => getOneCharacter(id).then((res) => res),
+    queryFn: () =>
+      getOneCharacter(id).then((res) => {
+        console.log("hereeeeeeee");
+        console.log(res);
+        return res;
+      }),
     refetchOnMount: false,
     refetchInterval: false,
     refetchOnReconnect: false,

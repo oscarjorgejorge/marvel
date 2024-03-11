@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useGetCharacters } from "../../core/hooks/api/useGetCharacters";
 import { defaultRequestConditionsInit } from "../../core/interfaces/api_request_condition";
 import { GetQueryCharactersConditions } from "../../core/api/characters";
+import { paths } from "../../routes";
 import { useQueryParams } from "../../core/hooks/useQueryParams";
 import { Pagination } from "../shared/Pagination";
-import { paths } from "../../routes";
 import { Search } from "../shared/Search";
 import { CharactersCardList } from "../shared/CharactersCardList";
 import { CharactersCardListSkeleton } from "../shared/CharactersCardListSkeleton";
@@ -48,14 +48,19 @@ export const Characters: FC<CharactersProps> = () => {
 
   return (
     <div className="space-y-10">
-      <Search
-        onInputChange={handleSearchChange}
-        placeholder="Search a character..."
-      />
-      {total} RESULTS
+      <div>
+        <Search
+          onInputChange={handleSearchChange}
+          placeholder="Search a character..."
+        />
+        <p className="mt-[8px] text-sm uppercase">{total} Results</p>
+      </div>
       {charactersState.isLoading && <CharactersCardListSkeleton />}
       {!charactersState.isLoading && (
-        <CharactersCardList characters={results} />
+        <CharactersCardList
+          characters={results}
+          alertText="Not characters found"
+        />
       )}
       <Pagination
         currentPage={offset / limit}

@@ -1,9 +1,9 @@
 import { FC, useMemo, useRef } from "react";
 import { useGetFavouritesCharacters } from "../../core/hooks/api/useGetFavouritesCharacters";
 import { useFavourites } from "../../core/hooks/useFavourites";
+import { ICharacter } from "../../core/interfaces/characters.model";
 import { CharactersCardList } from "../shared/CharactersCardList";
 import { CharactersCardListSkeleton } from "../shared/CharactersCardListSkeleton";
-import { ICharacter } from "../../core/interfaces/characters.model";
 
 interface FavouritesProps {}
 
@@ -13,17 +13,16 @@ export const Favourites: FC<FavouritesProps> = () => {
   const favouritesRef = useRef(favourites);
   const currentFavourites = favouritesRef.current;
 
-  const { data, ...stateUseGetFavouritesCharacters } =
+  const stateUseGetFavouritesCharacters =
     useGetFavouritesCharacters(currentFavourites);
-
-  const { results = [] } = data || {};
+  const data = stateUseGetFavouritesCharacters.data as ICharacter[];
 
   const favouritesToShow = useMemo(
     () =>
-      results.filter((character: ICharacter) =>
+      data?.filter((character: ICharacter) =>
         favourites.includes(character.id),
       ),
-    [results, favourites],
+    [data, favourites],
   );
 
   return (
@@ -32,7 +31,10 @@ export const Favourites: FC<FavouritesProps> = () => {
         <CharactersCardListSkeleton length={favourites.length} />
       )}
       {!stateUseGetFavouritesCharacters.isLoading && (
-        <CharactersCardList characters={favouritesToShow} />
+        <CharactersCardList
+          characters={favouritesToShow}
+          alertText="Not favourites added"
+        />
       )}
     </div>
   );

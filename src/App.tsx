@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Routes from "./components/Routes";
 import { routes } from "./routes";
-import { FavouriteProvider } from "./core/hooks/useFavourites";
+import { FavouriteProvider } from "./core/providers/favourites/favouritesProvider";
 
 const queryClient = new QueryClient();
 

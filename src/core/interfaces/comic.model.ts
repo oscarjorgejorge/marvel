@@ -1,6 +1,8 @@
-export interface IComic {
-  available: number;
-  collectionURI: string;
-  items: { name: string; resourceURI: string }[];
-  returned: number;
+import { IImage } from "./image.model";
+import { IModel } from "./model";
+
+export interface IComic extends IModel {
+  title: string;
+  thumbnail: IImage;
+  year: number;
 }

@@ -1,4 +1,4 @@
-import { IComic } from "./comic.model";
+import { IImage } from "./image.model";
 import { IModel } from "./model";
 
 export interface ICharacter extends IModel {
@@ -6,6 +6,11 @@ export interface ICharacter extends IModel {
   name: string;
   resourceURI: string;
   modified: Date;
-  thumbnail: { extension: string; path: string };
-  comics: IComic;
+  thumbnail: IImage;
+  comics: {
+    available: number;
+    collectionURI: string;
+    items: { name: string; resourceURI: string }[];
+    returned: number;
+  };
 }
