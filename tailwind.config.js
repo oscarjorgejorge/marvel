@@ -4,11 +4,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#0abb87",
-        "primary-light": "#90e8be",
-        secondary: " #eef0f5",
-        "secondary-light": "#f9fbff",
-        "secondary-dark": "#cad6dc",
+        primary: "#ec1d24",
+        "primary-light": "rgb(236 29 36 / 50%)",
+        "primary-dark": "rgb(175 38 42)",
+        secondary: "#000000",
+        "secondary-medium": "rgb(75 85 99)",
+        "secondary-light": "rgb(209 213 219)",
       },
     },
   },

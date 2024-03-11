@@ -4,6 +4,6 @@ export default interface RequestConditions {
 }
 
 export const defaultRequestConditionsInit: RequestConditions = {
-  limit: 10,
+  limit: 50,
   offset: 0,
 };

@@ -1,14 +1,14 @@
 import { FC } from "react";
-import { AdminLayout } from "../../components/layouts/admin";
+import { MainLayout } from "../../components/layouts/main";
 import { Characters } from "../../components/Characters";
 
 interface CharactersRouterProps {}
 
 const CharactersRouter: FC<CharactersRouterProps> = () => {
   return (
-    <AdminLayout>
+    <MainLayout className="p-[24px]">
       <Characters />
-    </AdminLayout>
+    </MainLayout>
   );
 };
 

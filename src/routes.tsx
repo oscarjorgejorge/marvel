@@ -1,25 +1,28 @@
 import { RouteType } from "./components/Routes";
+import CharactersDetailsRouter from "./routes/CharactersDetailsRouter/CharactersDetailsRouter";
 import CharactersRouter from "./routes/CharactersRouter/CharactersRouter";
-import HomeRouter from "./routes/HomeRouter/HomeRouter";
+import FavouritesRouter from "./routes/FavouritesRouter/FavouritesRouter";
 
 export const paths = {
-  // ADMIN ROUTES
-  HOME: "/",
-  CHARACTERS: "/characters",
+  CHARACTERS: "/",
+  FAVOURITES: "/favourites",
+  CHARACTERS_DETAILS: "/:id",
 };
 
 export const routes: RouteType[] = [
-  // TO ALL
-
-  // ADMIN ROUTES
-  {
-    path: paths.HOME,
-    exact: true,
-    element: <HomeRouter />,
-  },
   {
     path: paths.CHARACTERS,
     exact: true,
     element: <CharactersRouter />,
+  },
+  {
+    path: paths.FAVOURITES,
+    exact: true,
+    element: <FavouritesRouter />,
+  },
+  {
+    path: paths.CHARACTERS_DETAILS,
+    exact: true,
+    element: <CharactersDetailsRouter />,
   },
 ];

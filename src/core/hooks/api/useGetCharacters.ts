@@ -1,30 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
-// import { GetQueryUsersConditions, } from "../../api/users";
-// import {
-//   transformUsersQueryConditions,
-//   transformUsersToTable,
-// } from '../../../components/Users/userUtils';
-// import { useMemo } from "react";
-import { getCharacters } from "../../api/characters";
+import {
+  GetQueryCharactersConditions,
+  getCharacters,
+} from "../../api/characters";
+import { useMemo } from "react";
+import { transformCharactersQueryConditions } from "../../../components/Characters/charactersUtils";
 
 export const GetCharactersQueryKey = ["get-characters"];
 
-export const useGetCharacters = () => {
-  // const queryConditions = useMemo(
-  //   () => transformUsersQueryConditions(conditions),
-  //   [conditions]
-  // );
+export const useGetCharacters = (conditions: GetQueryCharactersConditions) => {
+  const queryConditions = useMemo(
+    () => transformCharactersQueryConditions(conditions),
+    [conditions],
+  );
 
-  // const { limit, skip } = queryConditions;
-
-  // const queryKey = useMemo(
-  //   () => [...GetUsersQueryKey, limit, skip],
-  //   [queryConditions]
-  // );
+  const queryKey = useMemo(
+    () => [...GetCharactersQueryKey, queryConditions],
+    [queryConditions],
+  );
 
   const state = useQuery({
-    queryKey: GetCharactersQueryKey,
-    queryFn: () => getCharacters().then((res) => res.data.data),
+    queryKey,
+    queryFn: () => getCharacters(queryConditions).then((res) => res.data.data),
     refetchOnMount: false,
     refetchInterval: false,
     refetchOnReconnect: false,
@@ -32,5 +29,5 @@ export const useGetCharacters = () => {
     refetchIntervalInBackground: false,
   });
 
-  return { ...state, queryKey: GetCharactersQueryKey };
+  return { ...state, queryKey };
 };
