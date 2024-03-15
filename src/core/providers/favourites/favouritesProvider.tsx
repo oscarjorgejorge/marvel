@@ -1,18 +1,27 @@
 import React, { ReactNode, useState } from "react";
 
-interface FavouriteContextType {
+export interface FavouriteContextType {
   favourites: number[];
   addFavourite: (id: number) => void;
   removeFavourite: (id: number) => void;
 }
 
-export const FavouriteContext = React.createContext<FavouriteContextType>({
+export const favouriteContextInit: FavouriteContextType = {
   favourites: [],
   addFavourite: () => {},
   removeFavourite: () => {},
-});
+};
 
-export function FavouriteProvider({ children }: { children: ReactNode }) {
+export const FavouriteContext =
+  React.createContext<FavouriteContextType>(favouriteContextInit);
+
+export function FavouriteProvider({
+  children,
+  value,
+}: {
+  children: ReactNode;
+  value?: FavouriteContextType;
+}) {
   const [favourites, setFavourites] = useState<number[]>([]);
 
   function addFavourite(id: number) {
@@ -25,7 +34,7 @@ export function FavouriteProvider({ children }: { children: ReactNode }) {
 
   return (
     <FavouriteContext.Provider
-      value={{ favourites, addFavourite, removeFavourite }}
+      value={value ? value : { favourites, addFavourite, removeFavourite }}
     >
       {children}
     </FavouriteContext.Provider>

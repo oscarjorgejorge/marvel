@@ -44,8 +44,6 @@ export const Characters: FC<CharactersProps> = () => {
     }
   };
 
-  console.log({ results });
-
   return (
     <div className="space-y-10">
       <div>

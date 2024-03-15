@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Suspense } from "react";
 import { twMerge } from "tailwind-merge";
 import { IImage } from "../../../core/interfaces/image.model";
 
@@ -14,11 +14,13 @@ export const Image: FC<ImageProps> = (props: ImageProps) => {
   const url = `${image.path}.${image.extension}`;
 
   return (
-    <img
-      loading="lazy"
-      className={twMerge("h-[210px] w-full object-cover", className)}
-      alt={`${alt} image`}
-      src={url}
-    />
+    <Suspense fallback="cargando">
+      <img
+        loading="lazy"
+        className={twMerge("h-[210px] w-full object-cover", className)}
+        alt={`${alt} image`}
+        src={url}
+      />
+    </Suspense>
   );
 };

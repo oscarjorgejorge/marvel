@@ -23,9 +23,6 @@ export const Character: FC<CharacterProps> = () => {
   const character = data?.character;
   const comics = data?.comics;
 
-  console.log({ character });
-  console.log({ comics });
-
   return (
     <div>
       {useGetOneCharacterState.isLoading && <CharacterSkeleton />}
