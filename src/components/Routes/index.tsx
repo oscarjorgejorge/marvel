@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export interface RouteType {
@@ -14,13 +14,15 @@ export interface RoutersProps {
 const InditexRoutes: FC<RoutersProps> = (props: RoutersProps) => {
   const { routes } = props;
   return (
-    <BrowserRouter>
-      <Routes>
-        {routes.map(({ path, element }) => {
-          return <Route key={path} path={path} element={element} />;
-        })}
-      </Routes>
-    </BrowserRouter>
+    <Suspense fallback="Loading... ">
+      <BrowserRouter>
+        <Routes>
+          {routes.map(({ path, element }) => {
+            return <Route key={path} path={path} element={element} />;
+          })}
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
   );
 };
 

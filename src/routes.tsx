@@ -1,13 +1,23 @@
+import React from "react";
 import { RouteType } from "./components/Routes";
-import CharactersDetailsRouter from "./routes/CharactersDetailsRouter/CharactersDetailsRouter";
-import CharactersRouter from "./routes/CharactersRouter/CharactersRouter";
-import FavouritesRouter from "./routes/FavouritesRouter/FavouritesRouter";
 
 export const paths = {
   CHARACTERS: "/",
   FAVOURITES: "/favourites",
   CHARACTERS_DETAILS: "/:id",
 };
+
+const CharactersRouter = React.lazy(
+  () => import("./routes/CharactersRouter/CharactersRouter"),
+);
+
+const FavouritesRouter = React.lazy(
+  () => import("./routes/FavouritesRouter/FavouritesRouter"),
+);
+
+const CharactersDetailsRouter = React.lazy(
+  () => import("./routes/CharactersDetailsRouter/CharactersDetailsRouter"),
+);
 
 export const routes: RouteType[] = [
   {
